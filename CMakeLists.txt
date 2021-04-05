@@ -1,4 +1,4 @@
-project(not-minidsp)
+project(betterlighting)
 cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -8,11 +8,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(cmake/compile-options.cmake)
 
 ### BINARY
-add_executable(prog)
-target_link_libraries(prog PUBLIC compile-options)
-include_directories(include)
+add_executable(bl)
+target_link_libraries(bl PUBLIC compile-options)
 
 add_subdirectory(src)
+
+### DEPLOYMENT
+install(TARGETS bl)
 
 ### TESTING
 enable_testing()
@@ -29,6 +31,6 @@ endif()
 
 option(ENABLE_SANITIZERS "Enable address and undefined snitizers" OFF)
 if(ENABLE_SANITIZERS MATCHES ON)
-  target_link_libraries(prog PUBLIC -fsanitize=address,undefined)
-  target_compile_options(prog PUBLIC -fsanitize=address,undefined)
+  target_link_libraries(bl PUBLIC -fsanitize=address,undefined)
+  target_compile_options(bl PUBLIC -fsanitize=address,undefined)
 endif()
